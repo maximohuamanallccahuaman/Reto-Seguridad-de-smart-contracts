@@ -1,19 +1,22 @@
+// contracts/MyContract.sol
 //SPDX-License-Identifier:  MIT
 pragma solidity ^0.8.0;
 
-contract Desafio {
+import "@openzeppelin/contracts/access/Ownable.sol";
+
+contract Desafio is Ownable{
     uint private pin; // Nada es privado en la blockchain
-    address private owner;
+    // address private owner;
     mapping(address => uint) balances;
 
     constructor(uint ownerPin) {
-        owner = msg.sender;
+        // owner = msg.sender;
         pin = ownerPin;
     }
 
     // Cualquiera puede ejecutarlo
     // El amount no está siendo controlado
-    function min(uint ownerPin, uint amount) public onlyowner{
+    function min(uint ownerPin, uint amount) public onlyOwner{
         require(pin == ownerPin, "El pin no es correcto");
         balances[msg.sender] += amount;
     }
@@ -30,9 +33,9 @@ contract Desafio {
         require(success, "Error al enviar eth");
     }
     
-
+/*
     modifier onlyowner() {
         require(owner == msg.sender, "Solo el propietario puede actualizar los terminos");
         _;
-    }
+    }*/
 }
