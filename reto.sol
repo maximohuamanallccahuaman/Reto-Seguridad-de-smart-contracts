@@ -29,7 +29,7 @@ contract Desafio is Ownable{
     function retirar() public {
         require(balances[msg.sender] > 0, "Insufficient balance");
         balances[msg.sender] = 0; // No te tenemos garantia que se seteara a 0
-        (bool success, ) = payable(msg.sender).call{value:balances[msg.sender]}(""); // No hay limite de gas, no estamos controlando el succes
+        (bool success, ) = payable(msg.sender).call{value:balances[msg.sender], gas:1000000}(""); // No hay limite de gas, no estamos controlando el succes
         require(success, "Error al enviar eth");
     }
     
